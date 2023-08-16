@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { Page1Component } from './page1/page1.component';
@@ -9,6 +10,8 @@ import { Page3Component } from './page3/page3.component';
 import { Page4Component } from './page4/page4.component';
 import { FilterComponent } from './filter/filter.component';
 import { LogoComponent } from './logo/logo.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DataService } from './services/data-service';
 
 const appRoutes: Routes = [
   { path: 'page1', component: Page1Component },
@@ -26,13 +29,15 @@ const appRoutes: Routes = [
     Page3Component,
     Page4Component,
     FilterComponent,
-    LogoComponent
+    LogoComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

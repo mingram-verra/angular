@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Product } from '../interfaces/products';
+import { HttpClient } from '@angular/common/http';
+import { DataService } from '../services/data-service';
 
 @Component({
   selector: 'app-page1',
@@ -6,17 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page1.component.css']
 })
 export class Page1Component implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
-    // get products data from backend or service
-    this.products = [
-      { name: 'Product 1', price: 10 },
-      { name: 'Product 2', price: 20 },
-      { name: 'Product 3', price: 30 },
-    ];
+  constructor(private http: HttpClient,
+    private dataService: DataService) { 
   }
 
+  ngOnInit(): void {
+    this.http.get('assets/products.json').subscribe((data: any) => {
+      this.products = data as Product[];
+      this.dataService.setData(this.products);
+    });
+  }  
 }
